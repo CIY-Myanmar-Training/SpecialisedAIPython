@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIY.CLUB Myanmar — AI Project Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+/* ═══════════════════════════════════════════════
+   GLOBAL RESET & VARIABLES
+═══════════════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#1D9E75;--green-dark:#0F6E56;--green-light:#E1F5EE;--green-border:#9FE1CB;
+  --blue:#378ADD;--blue-light:#E6F1FB;--blue-border:#B5D4F4;
+  --amber:#BA7517;--amber-light:#FAEEDA;--amber-border:#FAC775;
+  --pink:#993556;--pink-light:#FBEAF0;--pink-border:#F4C0D1;
+  --purple:#534AB7;--purple-light:#EEEDFE;--purple-border:#CECBF6;
+  --lime:#3B6D11;--lime-light:#EAF3DE;--lime-border:#C0DD97;
+  --text:#2C2C2A;--text2:#5F5E5A;--text3:#888780;
+  --bg:#FAFAF8;--bg2:#F1EFE8;--border:#D3D1C7;
+  --radius:12px;--radius-sm:8px;--radius-pill:20px;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+  --font:'Nunito',sans-serif;--font-body:'Nunito Sans',sans-serif;--font-mono:monospace;
+}
+
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh}
+
+/* ═══════════════════════════════════════════════
+   LOGIN PAGE
+═══════════════════════════════════════════════ */
+#loginPage{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:1.5rem;
+  background:linear-gradient(135deg,#0F6E56 0%,#1D9E75 40%,#2A8FE8 100%);
+  position:relative;overflow:hidden;
+}
+#loginPage::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:300px;height:300px;border-radius:50%;
+  background:rgba(255,255,255,0.07);
+}
+#loginPage::after{
+  content:'';position:absolute;bottom:-60px;left:-60px;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,0.05);
+}
+
+.login-card{
+  background:#fff;border-radius:20px;padding:2.5rem 2rem;
+  width:100%;max-width:400px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.2);
+  position:relative;z-index:1;
+  animation:slideUp .5s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.login-logo{text-align:center;margin-bottom:1.5rem}
+.login-logo-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:64px;height:64px;border-radius:16px;
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  margin-bottom:.75rem;
+}
+.login-logo-badge i{font-size:32px;color:#fff}
+.login-org{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:4px;font-family:var(--font)}
+.login-title{font-size:20px;font-weight:800;color:var(--text);font-family:var(--font)}
+.login-sub{font-size:13px;color:var(--text2);margin-top:4px}
+
+.login-form{display:flex;flex-direction:column;gap:.85rem}
+.field-label{font-size:12px;font-weight:600;color:var(--text);margin-bottom:.3rem;display:block;font-family:var(--font)}
+.field-wrap{position:relative}
+.field-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--text3)}
+.login-input{
+  width:100%;padding:.7rem 1rem .7rem 2.5rem;
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  font-size:14px;font-family:var(--font-body);color:var(--text);
+  background:#fff;transition:border-color .15s,box-shadow .15s;outline:none;
+}
+.login-input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-light)}
+.login-input.error{border-color:#E24B4A;box-shadow:0 0 0 3px #FCEBEB}
+
+.login-btn{
+  padding:.8rem;border-radius:var(--radius-sm);border:none;
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  color:#fff;font-size:15px;font-weight:700;font-family:var(--font);
+  cursor:pointer;transition:opacity .15s,transform .1s;margin-top:.25rem;
+}
+.login-btn:hover{opacity:.92}
+.login-btn:active{transform:scale(.98)}
+
+.login-error{
+  display:none;background:#FCEBEB;border:1.5px solid #F4C0C0;
+  border-radius:var(--radius-sm);padding:.6rem .85rem;
+  font-size:13px;color:#791F1F;text-align:center;
+}
+.login-error.show{display:block;animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.login-hint{
+  margin-top:1.25rem;padding:.75rem;border-radius:var(--radius-sm);
+  background:var(--green-light);border:1.5px solid var(--green-border);
+  font-size:12px;color:var(--green-dark);text-align:center;line-height:1.6;
+}
+.login-hint strong{font-weight:700}
+
+/* ═══════════════════════════════════════════════
+   MAIN APP (hidden until login)
+═══════════════════════════════════════════════ */
+#mainApp{display:none}
+
+.app-wrap{max-width:820px;margin:0 auto;padding:1.25rem}
+
+/* TOP BAR */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.6rem 1rem;background:#fff;border-radius:var(--radius);
+  border:1.5px solid var(--border);margin-bottom:1.25rem;
+  box-shadow:var(--shadow);
+}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-badge{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  display:flex;align-items:center;justify-content:center;
+}
+.topbar-badge i{font-size:18px;color:#fff}
+.topbar-org{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);font-family:var(--font)}
+.topbar-name{font-size:14px;font-weight:700;color:var(--text);font-family:var(--font)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.user-pill{
+  font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);
+  background:var(--green-light);color:var(--green-dark);border:1.5px solid var(--green-border);
+  font-family:var(--font);
+}
+.logout-btn{
+  font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);
+  background:#fff;color:var(--text2);border:1.5px solid var(--border);
+  cursor:pointer;font-family:var(--font);transition:all .12s;
+}
+.logout-btn:hover{background:var(--bg2);color:var(--text)}
+
+/* HERO */
+.hero{
+  padding:1.5rem;border-radius:16px;
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  margin-bottom:1.25rem;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.07)}
+.hero-org{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:.4rem;font-family:var(--font)}
+.hero-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:.3rem;font-family:var(--font)}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6;max-width:500px}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:.85rem}
+.hp{font-size:11px;padding:4px 10px;border-radius:var(--radius-pill);background:rgba(255,255,255,0.18);color:#fff;font-weight:600;font-family:var(--font)}
+
+/* PROJECT GRID */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:1.25rem}
+.proj-card{
+  border-radius:var(--radius);padding:.85rem 1rem;cursor:pointer;
+  border:2px solid transparent;background:#fff;transition:all .15s;text-align:left;
+  box-shadow:var(--shadow);
+}
+.proj-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.1)}
+.proj-card.p0{background:var(--green-light);border-color:var(--green-border)}
+.proj-card.p1{background:var(--blue-light);border-color:var(--blue-border)}
+.proj-card.p2{background:var(--amber-light);border-color:var(--amber-border)}
+.proj-card.p3{background:var(--pink-light);border-color:var(--pink-border)}
+.proj-card.p4{background:var(--purple-light);border-color:var(--purple-border)}
+.proj-card.p5{background:var(--lime-light);border-color:var(--lime-border)}
+.proj-card.active.p0{border-color:var(--green);box-shadow:0 0 0 3px var(--green-border)}
+.proj-card.active.p1{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-border)}
+.proj-card.active.p2{border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-border)}
+.proj-card.active.p3{border-color:var(--pink);box-shadow:0 0 0 3px var(--pink-border)}
+.proj-card.active.p4{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-border)}
+.proj-card.active.p5{border-color:var(--lime);box-shadow:0 0 0 3px var(--lime-border)}
+.proj-icon{font-size:22px;margin-bottom:.4rem}
+.proj-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;font-family:var(--font)}
+.proj-range{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* SESSION ROW */
+.sess-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.1rem}
+.ssbtn{
+  font-size:12px;font-weight:700;padding:6px 14px;border-radius:var(--radius-pill);
+  border:1.5px solid transparent;cursor:pointer;transition:all .12s;font-family:var(--font);
+}
+.ssbtn.c0{background:var(--green-light);border-color:var(--green-border);color:#085041}
+.ssbtn.c0:hover,.ssbtn.c0.active{background:var(--green);color:#fff;border-color:var(--green)}
+.ssbtn.c1{background:var(--blue-light);border-color:var(--blue-border);color:#0C447C}
+.ssbtn.c1:hover,.ssbtn.c1.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ssbtn.c2{background:var(--amber-light);border-color:var(--amber-border);color:#633806}
+.ssbtn.c2:hover,.ssbtn.c2.active{background:var(--amber);color:#fff;border-color:var(--amber)}
+.ssbtn.c3{background:var(--pink-light);border-color:var(--pink-border);color:#72243E}
+.ssbtn.c3:hover,.ssbtn.c3.active{background:var(--pink);color:#fff;border-color:var(--pink)}
+.ssbtn.c4{background:var(--purple-light);border-color:var(--purple-border);color:#3C3489}
+.ssbtn.c4:hover,.ssbtn.c4.active{background:var(--purple);color:#fff;border-color:var(--purple)}
+.ssbtn.c5{background:var(--lime-light);border-color:var(--lime-border);color:#27500A}
+.ssbtn.c5:hover,.ssbtn.c5.active{background:var(--lime);color:#fff;border-color:var(--lime)}
+
+/* SESSION BANNER */
+.s-banner{border-radius:14px;padding:1.1rem 1.25rem;margin-bottom:1.1rem;display:flex;gap:12px;align-items:flex-start}
+.b0{background:var(--green-light);border:1.5px solid var(--green-border)}
+.b1{background:var(--blue-light);border:1.5px solid var(--blue-border)}
+.b2{background:var(--amber-light);border:1.5px solid var(--amber-border)}
+.b3{background:var(--pink-light);border:1.5px solid var(--pink-border)}
+.b4{background:var(--purple-light);border:1.5px solid var(--purple-border)}
+.b5{background:var(--lime-light);border:1.5px solid var(--lime-border)}
+.s-bigicon{font-size:30px;flex-shrink:0}
+.s-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px;font-family:var(--font)}
+.b0 .s-num{color:#085041}.b1 .s-num{color:#0C447C}.b2 .s-num{color:#633806}
+.b3 .s-num{color:#72243E}.b4 .s-num{color:#3C3489}.b5 .s-num{color:#27500A}
+.s-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:4px;font-family:var(--font)}
+.s-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* TIME BAR */
+.timebar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.1rem}
+.tc{font-size:11px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);background:var(--bg2);color:var(--text2);font-family:var(--font)}
+
+/* PHASE */
+.phase-hdr{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin:1rem 0 .65rem;font-family:var(--font)}
+.pl-line{flex:1;height:1px;background:var(--border)}
+
+/* STEPS */
+.step{border-radius:var(--radius);padding:.85rem 1.1rem;margin-bottom:.55rem;border:1.5px solid var(--border);background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.step-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:.35rem}
+.snum{min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;color:#fff;font-family:var(--font)}
+.snum.c0{background:var(--green)}.snum.c1{background:var(--blue)}.snum.c2{background:var(--amber)}
+.snum.c3{background:var(--pink)}.snum.c4{background:var(--purple)}.snum.c5{background:var(--lime)}
+.st{font-size:14px;font-weight:700;color:var(--text);padding-top:3px;font-family:var(--font)}
+.sb{font-size:13px;color:var(--text2);line-height:1.65;padding-left:36px}
+
+/* CONTENT BOXES */
+.code-b{font-family:var(--font-mono);font-size:12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.65rem .9rem;margin:.45rem 0;white-space:pre;overflow-x:auto;line-height:1.65;color:var(--text)}
+.think-b{background:var(--amber-light);border-left:3px solid #EF9F27;border-radius:0 8px 8px 0;padding:.65rem .9rem;margin:.45rem 0;font-size:13px;color:#633806;line-height:1.65}
+.gem-b{background:var(--green-light);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:.65rem .9rem;margin:.45rem 0;font-size:13px;color:#085041;line-height:1.65}
+.info-b{background:var(--blue-light);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:.65rem .9rem;margin:.45rem 0;font-size:13px;color:#0C447C;line-height:1.65}
+.warn-b{background:#FCEBEB;border-left:3px solid #E24B4A;border-radius:0 8px 8px 0;padding:.65rem .9rem;margin:.45rem 0;font-size:13px;color:#791F1F;line-height:1.65}
+
+/* QUIZ */
+.quiz{border-radius:var(--radius);border:1.5px solid var(--border);padding:1rem 1.1rem;margin-top:1.1rem;background:#fff}
+.quiz-hdr{font-size:13px;font-weight:700;color:var(--text);margin-bottom:.7rem;font-family:var(--font)}
+.qq{font-size:13px;color:var(--text);padding:.6rem .75rem;background:var(--bg2);border-radius:var(--radius-sm);line-height:1.55;margin-bottom:.4rem}
+textarea{width:100%;min-height:58px;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.5rem .7rem;font-size:13px;color:var(--text);background:#fff;resize:vertical;margin:3px 0 5px;display:block;font-family:var(--font-body)}
+textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-light)}
+.qbtn{font-size:12px;font-weight:700;padding:5px 14px;border-radius:var(--radius-pill);border:1.5px solid var(--border);background:#fff;color:var(--text);cursor:pointer;font-family:var(--font)}
+.qbtn:hover{background:var(--bg2)}
+.qfb{font-size:13px;color:var(--text2);line-height:1.6;min-height:0;margin-top:4px}
+
+/* DONE BOX */
+.done-box{border-radius:var(--radius);border:1.5px solid var(--green-border);padding:.9rem 1.1rem;margin-top:1.1rem;background:var(--green-light)}
+.done-t{font-size:13px;font-weight:700;color:#085041;margin-bottom:.35rem;font-family:var(--font)}
+.done-l{font-size:13px;color:#0F6E56;line-height:2}
+
+/* COACH BOX */
+.coach-box{border-radius:var(--radius);border:1.5px solid var(--amber-border);padding:.9rem 1.1rem;margin-top:.75rem;background:var(--amber-light)}
+.coach-t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#633806;margin-bottom:.3rem;font-family:var(--font)}
+.coach-l{font-size:13px;color:#854F0B;line-height:1.7}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     LOGIN PAGE
+═══════════════════════════════════════════════ -->
+<div id="loginPage">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-badge"><i class="ti ti-code"></i></div>
+      <div class="login-org">CIY.CLUB Myanmar</div>
+      <div class="login-title">AI Project Curriculum</div>
+      <div class="login-sub">Sign in to access your learning dashboard</div>
+    </div>
+
+    <div class="login-form">
+      <div>
+        <label class="field-label" for="usernameInput">Username</label>
+        <div class="field-wrap">
+          <i class="ti ti-user field-icon"></i>
+          <input class="login-input" id="usernameInput" type="text" placeholder="CIY..." autocomplete="username">
+        </div>
+      </div>
+      <div>
+        <label class="field-label" for="passwordInput">Password</label>
+        <div class="field-wrap">
+          <i class="ti ti-lock field-icon"></i>
+          <input class="login-input" id="passwordInput" type="password" placeholder="hq.mm..." autocomplete="current-password">
+        </div>
+      </div>
+      <div class="login-error" id="loginError">Incorrect username or password. Please try again.</div>
+      <button class="login-btn" onclick="doLogin()">
+        <i class="ti ti-login"></i> Sign In
+      </button>
+    </div>
+
+    <div class="login-hint">
+      <strong>Need help?</strong> Contact your coach<br>
+      ciy.myanmar.training@gmail.com
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN APP
+═══════════════════════════════════════════════ -->
+<div id="mainApp">
+<div class="app-wrap">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-badge"><i class="ti ti-code"></i></div>
+      <div>
+        <div class="topbar-org">CIY.CLUB Myanmar</div>
+        <div class="topbar-name">AI Project Curriculum</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="user-pill" id="userPill"></span>
+      <button class="logout-btn" onclick="doLogout()"><i class="ti ti-logout"></i> Sign out</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-org">CIY.CLUB Myanmar · Coach Penny · Training Manager</div>
+    <div class="hero-title">AI + Python Project Curriculum</div>
+    <div class="hero-sub">In these 18 sessions you will build 5 real AI projects. Work at your own pace. Use Gemini to research. Write answers in your own words. Ask your coach only if stuck for more than 5 minutes.</div>
+    <div class="hero-pills">
+      <span class="hp">👩‍💻 Coach Penny</span>
+      <span class="hp">📧 ciy.myanmar.training@gmail.com</span>
+      <span class="hp">🕐 18 Sessions · 1hr 15min each</span>
+    </div>
+  </div>
+
+  <!-- PROJECT GRID -->
+  <div class="proj-grid" id="projGrid">
+    <div class="proj-card p0 active" onclick="selProj(0)"><div class="proj-icon">🎭</div><div class="proj-name">Sentiment Analyzer</div><div class="proj-range">Sessions 1–3</div></div>
+    <div class="proj-card p1" onclick="selProj(1)"><div class="proj-icon">📈</div><div class="proj-name">Prediction Model</div><div class="proj-range">Sessions 4–6</div></div>
+    <div class="proj-card p2" onclick="selProj(2)"><div class="proj-icon">🖼️</div><div class="proj-name">Image Recognition</div><div class="proj-range">Sessions 7–9</div></div>
+    <div class="proj-card p3" onclick="selProj(3)"><div class="proj-icon">🤖</div><div class="proj-name">AI Chatbot</div><div class="proj-range">Sessions 10–12</div></div>
+    <div class="proj-card p4" onclick="selProj(4)"><div class="proj-icon">🎮</div><div class="proj-name">AI Game</div><div class="proj-range">Sessions 13–15</div></div>
+    <div class="proj-card p5" onclick="selProj(5)"><div class="proj-icon">🚀</div><div class="proj-name">Final Project</div><div class="proj-range">Sessions 16–18</div></div>
+  </div>
+
+  <div class="sess-row" id="sessRow"></div>
+  <div id="panel"></div>
+
+</div><!-- /app-wrap -->
+</div><!-- /mainApp -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   AUTH
+═══════════════════════════════════════════════ */
+const USERS=[
+  {username:"CIY00Campus",password:"hq.mm.01",role:"Student",display:"Student 1"},
+  {username:"CIY01Campus",password:"hq.mm.02",role:"Student",display:"Student 2"},
+  {username:"CIY02Campus",password:"hq.mm.03",role:"Coach",display:"Coach Penny"}
+];
+
+let currentUser=null;
+
+function doLogin(){
+  const u=document.getElementById('usernameInput').value.trim();
+  const p=document.getElementById('passwordInput').value.trim();
+  const err=document.getElementById('loginError');
+  const found=USERS.find(x=>x.username===u&&x.password===p);
+  if(found){
+    currentUser=found;
+    err.classList.remove('show');
+    document.getElementById('loginPage').style.display='none';
+    document.getElementById('mainApp').style.display='block';
+    document.getElementById('userPill').textContent=found.role+': '+found.display;
+    renderSess(); renderPanel();
+  } else {
+    err.classList.remove('show');
+    void err.offsetWidth;
+    err.classList.add('show');
+    document.getElementById('passwordInput').classList.add('error');
+    setTimeout(()=>document.getElementById('passwordInput').classList.remove('error'),1500);
+  }
+}
+
+function doLogout(){
+  currentUser=null;
+  document.getElementById('usernameInput').value='';
+  document.getElementById('passwordInput').value='';
+  document.getElementById('mainApp').style.display='none';
+  document.getElementById('loginPage').style.display='flex';
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&document.getElementById('loginPage').style.display!=='none') doLogin();
+});
+
+/* ═══════════════════════════════════════════════
+   CURRICULUM DATA
+═══════════════════════════════════════════════ */
+const PC=['c0','c1','c2','c3','c4','c5'];
+const PB=['b0','b1','b2','b3','b4','b5'];
+
+const PROJS=[
+  {name:"Sentiment Analyzer",icon:"🎭",range:[0,3]},
+  {name:"Prediction Model",icon:"📈",range:[3,3]},
+  {name:"Image Recognition",icon:"🖼️",range:[6,3]},
+  {name:"AI Chatbot",icon:"🤖",range:[9,3]},
+  {name:"AI Game",icon:"🎮",range:[12,3]},
+  {name:"Final Project",icon:"🚀",range:[15,3]}
+];
+
+const SESSIONS=[
+{proj:0,num:1,icon:"🎭",title:"Sentiment Analyzer — understanding the project",desc:"You will build an AI that reads text and decides if it is positive or negative. Before any code, understand what sentiment analysis is and why it matters.",time:["0–15 min: Research","15–45 min: Dataset","45–68 min: Clean & explore","68–75 min: Quiz"],
+phases:[
+{label:"Research first",steps:[
+{n:1,title:"What is sentiment analysis?",body:`Open <strong>gemini.google.com</strong> and ask:<div class="code-b">"What is sentiment analysis? Give me 3 real-world examples of companies that use it."</div>Then ask: <div class="code-b">"What Python libraries are used for sentiment analysis?"</div><div class="think-b">🤔 <strong>Think:</strong> Can you think of a situation where knowing if text is positive or negative would be useful? Write one idea on paper.</div>`},
+{n:2,title:"Plan your project on paper",body:`Draw this pipeline on paper:<div class="code-b">Raw text → Clean text → Numbers → AI Model → Prediction</div>For each arrow, write what you think happens. You don't need to be right — just guess!<div class="think-b">🤔 <strong>Think:</strong> Why do we plan before coding? What problems happen if we just start typing?</div>`}
+]},
+{label:"Build the dataset",steps:[
+{n:3,title:"Open Colab and create your dataset",body:`Go to <strong>colab.research.google.com</strong> → New notebook. Name it <code>sentiment_analyzer.ipynb</code>. In Cell 1, TYPE (don't paste):<div class="code-b">import pandas as pd
+
+reviews = {
+    "text": [
+        "I absolutely loved this film, incredible story",
+        "Terrible experience, total waste of time",
+        "Best thing I have watched all year",
+        "Boring and slow, fell asleep halfway",
+        "Brilliant acting and beautiful visuals",
+        "Disappointing ending, ruined everything",
+        "Funny, warm, and deeply moving",
+        "Awful script, poor direction",
+        "Could not stop smiling the whole time",
+        "One star, completely unwatchable"
+    ],
+    "label": ["positive","negative","positive","negative","positive",
+               "negative","positive","negative","positive","negative"]
+}
+
+df = pd.DataFrame(reviews)
+print(df)</div>Run it. You should see a table with 10 rows!`},
+{n:4,title:"Add 6 more reviews yourself",body:`Add 3 more positive and 3 more negative reviews using YOUR OWN words. Write about a real movie, game, or food you like or dislike.<div class="gem-b">🔍 <strong>Gemini tip:</strong> Ask: "What makes a movie review clearly positive or negative?" Use for inspiration — write YOUR OWN reviews!</div>`},
+{n:5,title:"Explore your data",body:`In new cells, run each of these:<div class="code-b">print(df.shape)
+print(df["label"].value_counts())
+print(df["text"].str.len().describe())</div><div class="think-b">🤔 <strong>Think:</strong> What does str.len().describe() show you? Why would it matter if some reviews are much longer than others?</div>`}
+]},
+{label:"Clean the text",steps:[
+{n:6,title:"Write a text cleaning function",body:`In a new cell, TYPE this carefully:<div class="code-b">import re
+
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^\w\s]', '', text)
+    words = text.split()
+    stopwords = ["i","the","a","an","this","was","is","it",
+                 "and","or","to","so","of","in","that","have"]
+    words = [w for w in words if w not in stopwords]
+    return " ".join(words)
+
+df["clean"] = df["text"].apply(clean_text)
+print(df[["text","clean"]].head(5))</div><div class="gem-b">🔍 <strong>Research:</strong> Ask Gemini: "What does re.sub do in Python text cleaning?" Understand it before moving on!</div>`}
+]}
+],
+quiz:[
+{q:"What is sentiment analysis? Explain in 2 sentences as if explaining to a younger student.",kw:"positive"},
+{q:"What 3 things does your clean_text function do, in order? Plain English — no code!",kw:"lower"},
+{q:"Why do we remove stopwords? Give one reason it helps an AI model.",kw:""}
+],
+done:["Dataset created with 16+ reviews in Colab","clean_text function written and working","Explored df.shape and value_counts","All 3 quiz answers written","Show Coach Penny your notebook ✓"],
+coach:"Check: student has ≥16 rows, balanced labels, clean column visible. Quiz Q1 should mention positive/negative classification. Q2 should mention lowercase + punctuation + stopwords."},
+
+{proj:0,num:2,icon:"🎭",title:"Sentiment Analyzer — turning text into numbers and training",desc:"Today you convert clean text into numbers that an AI can learn from, then train your first real classifier!",time:["0–10 min: Research","10–45 min: Vectorize","45–68 min: Train model","68–75 min: Quiz"],
+phases:[
+{label:"Research: how AI reads text",steps:[
+{n:1,title:"Ask Gemini about vectorization",body:`Ask Gemini: "What is a CountVectorizer in scikit-learn? Explain with a simple example." Then: "What is Naive Bayes classification and why is it good for text?"<div class="think-b">🤔 <strong>Think:</strong> If the word "terrible" appears mostly in negative reviews, what number pattern would you expect to see?</div>`}
+]},
+{label:"Vectorize text",steps:[
+{n:2,title:"Convert text to numbers",body:`<div class="code-b">from sklearn.feature_extraction.text import CountVectorizer
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(df["clean"])
+y = df["label"]
+
+print("Matrix shape:", X.shape)
+print("Total unique words:", len(vectorizer.get_feature_names_out()))</div><div class="think-b">🤔 <strong>Think:</strong> What does each column in this matrix represent? Sketch a small 3×4 table on paper.</div>`},
+{n:3,title:"Look inside the matrix",body:`<div class="code-b">word_df = pd.DataFrame(X.toarray(), columns=vectorizer.get_feature_names_out())
+print(word_df.iloc[:3, :8])</div>Find one word that's 0 for a positive review but 1 for a negative one!`}
+]},
+{label:"Train the model",steps:[
+{n:4,title:"Split data: train and test",body:`<div class="code-b">from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+print("Training:", X_train.shape[0], "samples")
+print("Testing: ", X_test.shape[0], "samples")</div><div class="gem-b">🔍 <strong>Research:</strong> Ask Gemini: "Why do we split data into training and testing sets?"</div>`},
+{n:5,title:"Train Naive Bayes",body:`<div class="code-b">from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+
+model = MultinomialNB()
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+accuracy = accuracy_score(y_test, predictions)
+print("Accuracy:", round(accuracy * 100, 1), "%")</div><div class="think-b">🤔 <strong>Think:</strong> Look at any wrong predictions. Why might the model have been wrong?</div>`},
+{n:6,title:"Test with YOUR own sentences",body:`<div class="code-b">def predict_sentiment(text):
+    cleaned = clean_text(text)
+    vector = vectorizer.transform([cleaned])
+    return model.predict(vector)[0]
+
+print(predict_sentiment("I really enjoyed this"))
+print(predict_sentiment("This was a disaster"))</div>Try 5 sentences of your own. Try to TRICK the model!<div class="warn-b">⚠️ <strong>Challenge:</strong> Write a sentence the model gets wrong. WHY did it fail?</div>`}
+]}
+],
+quiz:[
+{q:"What does fit_transform do? Explain 'fit' and 'transform' separately in plain English.",kw:"fit"},
+{q:"Your model may not be 100% accurate. Name 2 reasons why it might make mistakes.",kw:""},
+{q:"What is the difference between X_train and X_test? Why do we need both?",kw:"train"}
+],
+done:["Text vectorized, matrix shape printed","Model trained, accuracy printed","Tested with 5+ custom sentences","Found at least 1 sentence that confused the model","All quiz answers written"],
+coach:"Expected accuracy: 60–90% with small dataset. Ask student to verbally explain what fit_transform does. Red flag if student cannot explain train/test split concept."},
+
+{proj:0,num:3,icon:"🎭",title:"Sentiment Analyzer — upgrade with TF-IDF and build an interface",desc:"Make your model better with TF-IDF, then build a simple interface anyone can use!",time:["0–15 min: TF-IDF research","15–45 min: Upgrade","45–68 min: Interface","68–75 min: Quiz"],
+phases:[
+{label:"Upgrade the model",steps:[
+{n:1,title:"Research TF-IDF",body:`Ask Gemini: "What is TF-IDF and how is it better than CountVectorizer?"<div class="think-b">🤔 <strong>Think:</strong> If the word "the" appears in every review, should it get the same importance as "brilliant"?</div>`},
+{n:2,title:"Upgrade to TF-IDF",body:`<div class="code-b">from sklearn.feature_extraction.text import TfidfVectorizer
+
+tfidf = TfidfVectorizer()
+X = tfidf.fit_transform(df["clean"])
+y = df["label"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+model.fit(X_train, y_train)
+preds = model.predict(X_test)
+print("New accuracy:", round(accuracy_score(y_test, preds)*100,1), "%")</div>Did accuracy improve? Write old vs new!`},
+{n:3,title:"Build the interface",body:`<div class="code-b">def analyze_sentiment(text):
+    cleaned = clean_text(text)
+    vector = tfidf.transform([cleaned])
+    prediction = model.predict(vector)[0]
+    confidence = model.predict_proba(vector).max()
+    print("---")
+    print("Text:      ", text)
+    print("Sentiment: ", prediction.upper())
+    print("Confidence:", round(confidence * 100, 1), "%")
+    print("---")
+
+analyze_sentiment("This is the best day of my life!")
+analyze_sentiment("I am so disappointed with everything")</div>`},
+{n:4,title:"Write your project summary",body:`In a new Text cell (click + Text in Colab), write:<br><br>1. What does your project do?<br>2. What are its 2 biggest weaknesses?<br>3. If you had 1,000 reviews, what would happen to accuracy?`}
+]}
+],
+quiz:[
+{q:"What is TF-IDF? How is it different from just counting words?",kw:""},
+{q:"Your model shows 65% confidence. What does that mean? Is 65% good or bad?",kw:""},
+{q:"Name 2 ways you could improve this sentiment analyzer.",kw:""}
+],
+done:["TF-IDF working, accuracy compared","analyze_sentiment function with confidence score","Project summary text cell written","Show Coach Penny the full notebook"],
+coach:"Key check: student should understand more data = better model. Ask them to explain TF-IDF vs CountVectorizer verbally."},
+
+{proj:1,num:4,icon:"📈",title:"Prediction Model — understanding regression",desc:"Sentiment predicts categories. Now build a model that predicts a NUMBER — like an exam score!",time:["0–15 min: Research","15–50 min: Create dataset","50–68 min: Explore","68–75 min: Quiz"],
+phases:[
+{label:"Understand the concept",steps:[
+{n:1,title:"Research regression",body:`Ask Gemini: "What is the difference between classification and regression? Give me 2 examples of each." Then: "What is linear regression? Explain without math formulas."<div class="think-b">🤔 <strong>Think:</strong> In sentiment analysis the output was a category. In regression, what kind of output will we get?</div>`},
+{n:2,title:"Plan your project",body:`You will predict a student's <strong>exam score</strong> based on hours studied, hours slept, and practice tests. Draw this:<div class="code-b">INPUTS → [ hours_studied, hours_slept, practice_tests ] → MODEL → exam_score (0-100)</div>`}
+]},
+{label:"Build the dataset",steps:[
+{n:3,title:"Create the dataset",body:`New notebook → <code>score_predictor.ipynb</code><div class="code-b">import pandas as pd
+import numpy as np
+
+np.random.seed(42)
+n = 50
+hours_studied  = np.random.randint(1, 10, n)
+hours_slept    = np.random.randint(4, 10, n)
+practice_tests = np.random.randint(0, 6, n)
+score = (hours_studied*7 + hours_slept*4 + practice_tests*5 + np.random.randint(-5,5,n))
+score = np.clip(score, 0, 100)
+
+df = pd.DataFrame({"hours_studied":hours_studied,"hours_slept":hours_slept,
+                   "practice_tests":practice_tests,"score":score})
+print(df.head(10))
+print(df.describe())</div><div class="gem-b">🔍 Research: "What does np.random.seed(42) do?"</div>`},
+{n:4,title:"Explore with scatter plots",body:`<div class="code-b">import matplotlib.pyplot as plt
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+axes[0].scatter(df["hours_studied"], df["score"], alpha=0.6)
+axes[0].set_xlabel("Hours Studied"); axes[0].set_ylabel("Score"); axes[0].set_title("Study vs Score")
+axes[1].scatter(df["hours_slept"], df["score"], alpha=0.6, color="orange")
+axes[1].set_xlabel("Hours Slept"); axes[1].set_title("Sleep vs Score")
+axes[2].scatter(df["practice_tests"], df["score"], alpha=0.6, color="green")
+axes[2].set_xlabel("Practice Tests"); axes[2].set_title("Practice vs Score")
+plt.tight_layout(); plt.show()</div><div class="think-b">🤔 <strong>Think:</strong> Which scatter plot shows the strongest pattern? How can you tell?</div>`}
+]}
+],
+quiz:[
+{q:"What is the difference between classification and regression? Give one example of each.",kw:"number"},
+{q:"Which feature seems most important for predicting score? How can you tell from the graph?",kw:""},
+{q:"What does np.clip(score, 0, 100) do? Why is it important?",kw:""}
+],
+done:["score_predictor.ipynb created with 50 rows","describe() explored","3 scatter plots created","Quiz answers written"],
+coach:"Students should understand scatter plots intuitively. Ask student to point to the plot showing the strongest pattern."},
+
+{proj:1,num:5,icon:"📈",title:"Prediction Model — training Linear Regression",desc:"Train a model that predicts numbers. Learn how to measure if a regression model is any good!",time:["0–10 min: Research metrics","10–50 min: Train","50–68 min: Evaluate","68–75 min: Quiz"],
+phases:[
+{label:"Research metrics",steps:[
+{n:1,title:"Learn MAE and R²",body:`Ask Gemini: "What is Mean Absolute Error in machine learning?" Then: "What is R-squared score? Explain without complex math."<div class="think-b">🤔 <strong>Think:</strong> Why can't we use accuracy % for regression like we did for sentiment analysis?</div>`}
+]},
+{label:"Train and evaluate",steps:[
+{n:2,title:"Train the model",body:`<div class="code-b">from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+X = df[["hours_studied","hours_slept","practice_tests"]]
+y = df["score"]
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=42)
+model = LinearRegression()
+model.fit(X_train, y_train)
+print("Model trained!")</div>`},
+{n:3,title:"Measure and predict",body:`<div class="code-b">from sklearn.metrics import mean_absolute_error, r2_score
+predictions = model.predict(X_test)
+print("MAE:", round(mean_absolute_error(y_test,predictions),2),"points")
+print("R²: ", round(r2_score(y_test,predictions),2))
+for i in range(5):
+    print(f"Predicted: {round(predictions[i],1)}  |  Actual: {y_test.iloc[i]}")</div><div class="think-b">🤔 If your MAE is 8, what does that mean in real exam score terms?</div>`},
+{n:4,title:"Predict your own score",body:`<div class="code-b">def predict_score(hours_studied, hours_slept, practice_tests):
+    data = [[hours_studied, hours_slept, practice_tests]]
+    return round(model.predict(data)[0], 1)
+
+print(predict_score(8, 9, 4))   # Hard worker
+print(predict_score(2, 4, 0))   # Not prepared
+print(predict_score(5, 7, 2))   # Average</div>Predict YOUR score using YOUR real study habits!<div class="warn-b">⚠️ Challenge: What happens with predict_score(0,0,0)? Is the result realistic?</div>`}
+]}
+],
+quiz:[
+{q:"What does Mean Absolute Error tell you? If MAE is 5 on exam scores, is that good?",kw:"error"},
+{q:"Which feature had the highest coefficient? What does that mean?",kw:""},
+{q:"Can your model predict a score of 150/100? Why or why not?",kw:""}
+],
+done:["Linear regression trained","MAE and R² printed and understood","predict_score function working","Quiz answers written"],
+coach:"Ask: 'What would happen if you added 500 more rows?' They should say accuracy improves. Check MAE understanding intuitively."},
+
+{proj:1,num:6,icon:"📈",title:"Prediction Model — feature engineering",desc:"Real AI engineers improve models. Create new features to make predictions better!",time:["0–15 min: Research","15–50 min: New features","50–68 min: Compare","68–75 min: Report"],
+phases:[
+{label:"Feature engineering",steps:[
+{n:1,title:"Research feature engineering",body:`Ask Gemini: "What is feature engineering in machine learning? Give me 3 examples."<div class="think-b">🤔 <strong>Think:</strong> What new feature could you make by combining hours_studied and hours_slept?</div>`},
+{n:2,title:"Create new features",body:`<div class="code-b">df["total_prep"]       = df["hours_studied"] + df["practice_tests"] * 2
+df["study_efficiency"] = df["hours_studied"] / (df["hours_slept"] + 1)
+df["is_well_prepared"] = (df["hours_studied"] >= 6).astype(int)
+print(df[["hours_studied","practice_tests","total_prep","study_efficiency"]].head(8))</div>`},
+{n:3,title:"Compare old vs new model",body:`<div class="code-b">X_new = df[["hours_studied","hours_slept","practice_tests",
+              "total_prep","study_efficiency","is_well_prepared"]]
+X_tr2,X_te2,y_tr2,y_te2 = train_test_split(X_new,df["score"],test_size=0.2,random_state=42)
+model2 = LinearRegression()
+model2.fit(X_tr2, y_tr2)
+preds2 = model2.predict(X_te2)
+print("OLD MAE:", round(mean_absolute_error(y_test,predictions),2))
+print("NEW MAE:", round(mean_absolute_error(y_te2,preds2),2))</div>Did adding features help?`},
+{n:4,title:"Write your project report",body:`Create a Text cell:<div class="code-b">## Score Predictor — Project Report
+### What it does:
+### Data used:
+### Old MAE vs New MAE:
+### What I learned:
+### What I would improve:</div>`}
+]}
+],
+quiz:[
+{q:"What is feature engineering? Why might new features improve a model?",kw:"feature"},
+{q:"Did your model improve after adding features? What does that tell you?",kw:""},
+{q:"Name one limitation of your model.",kw:""}
+],
+done:["3 new features created","MAE comparison done","Project report written","Show Coach Penny"],
+coach:"Feature engineering is the key concept. Project report is mandatory before Project 3."},
+
+{proj:2,num:7,icon:"🖼️",title:"Image Recognition — how AI sees images",desc:"How does AI know a photo contains a cat? Learn the concepts before writing any code!",time:["0–20 min: Research","20–50 min: Load model","50–68 min: Classify","68–75 min: Quiz"],
+phases:[
+{label:"Research concepts",steps:[
+{n:1,title:"Ask Gemini the big questions",body:`Ask each one at a time:<div class="code-b">"What are pixels and how does a computer store an image?"</div><div class="code-b">"What is a CNN? Explain it simply for a student."</div><div class="code-b">"What is a pre-trained model? Why use one instead of training from scratch?"</div><div class="think-b">🤔 Training a CNN from scratch takes days and millions of images. Why is a pre-trained model like a shortcut?</div>`},
+{n:2,title:"Draw the pipeline",body:`Draw on paper:<div class="code-b">Photo → Load as array → Resize → Normalize → Pre-trained Model → Top 3 predictions</div>Write one sentence for each step. Your best guess is fine!`}
+]},
+{label:"Set up and classify",steps:[
+{n:3,title:"Install and load model",body:`New notebook → <code>image_classifier.ipynb</code><div class="code-b">!pip install tensorflow -q
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input, decode_predictions
+from tensorflow.keras.preprocessing import image
+
+model = MobileNetV2(weights="imagenet")
+print("Model loaded! Layers:", len(model.layers))</div><div class="gem-b">🔍 Research: "What is MobileNetV2? How many images was it trained on?"</div>`},
+{n:4,title:"Classify your first image",body:`Upload any photo in Colab (folder icon → upload):<div class="code-b">from google.colab import files
+uploaded = files.upload()
+img_path = list(uploaded.keys())[0]
+
+img = image.load_img(img_path, target_size=(224, 224))
+img_array = preprocess_input(np.expand_dims(image.img_to_array(img), axis=0))
+preds = decode_predictions(model.predict(img_array), top=3)[0]
+
+plt.imshow(image.load_img(img_path)); plt.axis("off"); plt.show()
+for rank,(id,label,conf) in enumerate(preds,1):
+    print(f"{rank}. {label}: {round(conf*100,1)}%")</div>Did it recognise the object correctly?`}
+]}
+],
+quiz:[
+{q:"What is a pixel? How does a computer represent a colour image as numbers?",kw:"number"},
+{q:"What does 'pre-trained' mean? Why is MobileNetV2 better than training from scratch?",kw:"train"},
+{q:"If the model says 'cat: 43%' and 'dog: 38%', what does that mean? Is it certain?",kw:""}
+],
+done:["MobileNetV2 loaded","At least 1 image classified","Quiz answers written","Show Coach Penny: image + predictions"],
+coach:"Ensure student genuinely understands they're using a model trained on 1.2M images, not training from scratch."},
+
+{proj:2,num:8,icon:"🖼️",title:"Image Recognition — test multiple images and find limits",desc:"Build a proper classifier, test 5 different images, and explore what confuses the model!",time:["0–10 min: Research","10–55 min: Multi-image","55–68 min: Test limits","68–75 min: Quiz"],
+phases:[
+{label:"Build and test",steps:[
+{n:1,title:"Build a reusable function",body:`<div class="code-b">def classify_image(img_path):
+    img = image.load_img(img_path, target_size=(224, 224))
+    arr = preprocess_input(np.expand_dims(image.img_to_array(img), axis=0))
+    preds = decode_predictions(model.predict(arr), top=3)[0]
+    plt.imshow(image.load_img(img_path)); plt.axis("off"); plt.show()
+    for i,(_, label, conf) in enumerate(preds, 1):
+        bar = "█" * int(conf * 20)
+        print(f"  {i}. {label:20s} {bar} {round(conf*100,1)}%")
+    print()</div>`},
+{n:2,title:"Test 5 different images",body:`Upload 5 very different images (fruit, animal, vehicle, clothing, household object). Test each one. Record results — which did it get right? Wrong?<div class="think-b">🤔 On images it got wrong, WHY might it have failed?</div>`},
+{n:3,title:"Test the limits",body:`<div class="code-b">from PIL import Image as PILImage
+# Rotate the image
+img = PILImage.open("your_image.jpg").rotate(90)
+img.save("rotated.jpg")
+classify_image("rotated.jpg")
+
+# Make it very dark
+img2 = PILImage.open("your_image.jpg")
+dark = img2.point(lambda p: p * 0.3)
+dark.save("dark.jpg")
+classify_image("dark.jpg")</div><div class="gem-b">🔍 Research: "What are common failure cases in image recognition models?"</div>`},
+{n:4,title:"Write your analysis",body:`In a Text cell, write:<br>— "The model was most confident when..."<br>— "The model struggled when..."<br>— "The most surprising result was..."`}
+]}
+],
+quiz:[
+{q:"Describe 2 types of images that confused the model. Why do you think it failed?",kw:""},
+{q:"What does confidence 95% vs 51% tell you? When could 51% be a real problem?",kw:"confiden"},
+{q:"If you showed the model a very rare animal it never trained on, what would happen?",kw:""}
+],
+done:["classify_image function built","5 images tested","Rotation and dark experiments done","Analysis written","Show Coach Penny: one wrong prediction with explanation"],
+coach:"Goal is critical thinking about model limits. Ask: 'If this was used in a hospital, what are the risks?'"},
+
+{proj:2,num:9,icon:"🖼️",title:"Image Recognition — build a custom category detector",desc:"Build your own 2-category classifier using transfer learning!",time:["0–15 min: Transfer learning","15–55 min: Custom classifier","55–68 min: Test","68–75 min: Summary"],
+phases:[
+{label:"Transfer learning",steps:[
+{n:1,title:"Research transfer learning",body:`Ask Gemini: "What is transfer learning? How does it work with image recognition?" Then: "What does it mean to use a model as a feature extractor?"<div class="think-b">🤔 If MobileNetV2 already learned edges, textures and shapes — why is that useful for a completely new task?</div>`}
+]},
+{label:"Build custom classifier",steps:[
+{n:2,title:"Extract features",body:`Choose 2 categories (indoor/outdoor, food/not-food etc). Collect 6 images each.<div class="code-b">feature_model = tf.keras.Model(inputs=model.input, outputs=model.layers[-2].output)
+
+def extract_features(img_path):
+    img = image.load_img(img_path, target_size=(224, 224))
+    arr = preprocess_input(np.expand_dims(image.img_to_array(img), axis=0))
+    return feature_model.predict(arr, verbose=0)[0]
+
+print("Feature shape:", extract_features(img_path).shape)</div>`},
+{n:3,title:"Train and test",body:`<div class="code-b">from sklearn.svm import SVC
+features, labels = [], []
+for path in category_a_images:
+    features.append(extract_features(path)); labels.append("category_a")
+for path in category_b_images:
+    features.append(extract_features(path)); labels.append("category_b")
+
+classifier = SVC(kernel="linear", probability=True)
+classifier.fit(np.array(features), np.array(labels))
+print("Custom classifier trained!")</div>Test on 3 new images not used in training.`}
+]}
+],
+quiz:[
+{q:"What is transfer learning? Explain using an analogy.",kw:"learn"},
+{q:"Why did we use MobileNetV2 as a feature extractor instead of using it directly?",kw:""},
+{q:"Your classifier only had 6 images per category. What are 2 problems this causes?",kw:""}
+],
+done:["Feature extractor built","Custom 2-category classifier trained","Tested on 3 new images","Project summary written","Show Coach Penny"],
+coach:"This is the hardest session in Project 3. Key insight: borrowing learned knowledge from a pre-trained model."},
+
+{proj:3,num:10,icon:"🤖",title:"AI Chatbot — design and rule-based foundation",desc:"Plan your chatbot on paper, then build the rule-based logic before adding real AI!",time:["0–15 min: Research","15–40 min: Design","40–68 min: Build","68–75 min: Quiz"],
+phases:[
+{label:"Research and design",steps:[
+{n:1,title:"Understand chatbot types",body:`Ask Gemini: "What are the 3 main types of chatbots? Differences between rule-based, retrieval-based, and generative?"<div class="think-b">🤔 Siri, customer service bots, ChatGPT — which type is each?</div>`},
+{n:2,title:"Design your bot on paper",body:`Choose a theme: movie recommender, quiz bot, homework helper, or your own idea!<br><br>Write on paper:<br>1. Bot name and personality<br>2. 5 questions it should answer<br>3. What it says when confused<br>4. Opening greeting<div class="warn-b">⚠️ Show your design to Coach Penny before coding!</div>`}
+]},
+{label:"Build rule-based bot",steps:[
+{n:3,title:"Build the response system",body:`New notebook → <code>ai_chatbot.ipynb</code><div class="code-b">def get_response(user_input):
+    text = user_input.lower().strip()
+    if any(w in text for w in ["hello","hi","hey"]):
+        return "Hello! I'm MovieBot 🎬 What genre do you like?"
+    elif "action" in text:
+        return "Try: Mad Max: Fury Road, Mission Impossible, or John Wick!"
+    elif "comedy" in text or "funny" in text:
+        return "For laughs: The Grand Budapest Hotel or Knives Out!"
+    elif "sad" in text or "cry" in text:
+        return "Need a cry? Try: Interstellar, Hachi, or Up!"
+    elif any(w in text for w in ["bye","goodbye"]):
+        return "Bye! Enjoy your movie 🍿"
+    else:
+        return "I'm not sure! Try asking about action, comedy, or sad movies."
+
+print(get_response("hello"))
+print(get_response("something funny"))</div><div class="think-b">🤔 What happens if someone types "HELLO" in caps? How would you fix that?</div>`},
+{n:4,title:"Add conversation loop",body:`<div class="code-b">print("="*40)
+print("Welcome to MovieBot! (type 'exit' to quit)")
+print("="*40)
+count = 0
+while True:
+    user = input("You: ")
+    if user.lower() in ["exit","quit","bye"]:
+        print("MovieBot: Goodbye! 🎬"); break
+    print("MovieBot:", get_response(user))
+    count += 1
+print(f"Chat ended after {count} messages.")</div>Test 8+ different inputs. List 3 improvements you noticed.`}
+]}
+],
+quiz:[
+{q:"What is the difference between a rule-based chatbot and ChatGPT?",kw:"rule"},
+{q:"Why is a good fallback message important in a chatbot?",kw:""},
+{q:"What is the problem with if/elif/else when a bot needs to handle 1,000 different inputs?",kw:""}
+],
+done:["Design approved by Coach Penny","get_response with 6+ rules","Conversation loop working","Tested 8+ inputs","Quiz answers written"],
+coach:"Design on paper is mandatory before coding. Key limitation: rule-based bots break for anything not explicitly programmed."},
+
+{proj:3,num:11,icon:"🤖",title:"AI Chatbot — connect the Gemini API",desc:"Give your chatbot real intelligence by connecting to Gemini's API!",time:["0–15 min: API research","15–50 min: Connect Gemini","50–68 min: Hybrid bot","68–75 min: Quiz"],
+phases:[
+{label:"APIs",steps:[
+{n:1,title:"What is an API?",body:`Ask Gemini: "What is an API? Explain like I've never heard the word before." Then: "How does an AI language model API work?"<div class="think-b">🤔 When you type in Gemini and get an answer, an API lets your Python code do the exact same thing. How is that useful?</div>`}
+]},
+{label:"Connect and build",steps:[
+{n:2,title:"Connect Gemini API",body:`<div class="info-b">ℹ️ Coach Penny will give you the API key. Never share it publicly!</div><div class="code-b">!pip install google-generativeai -q
+import google.generativeai as genai
+
+API_KEY = "YOUR_KEY_HERE"
+genai.configure(api_key=API_KEY)
+ai_model = genai.GenerativeModel("gemini-1.5-flash")
+print("Gemini connected!")</div>`},
+{n:3,title:"Add a personality with system prompt",body:`<div class="code-b">def ask_gemini(user_message, personality):
+    prompt = f"""You are {personality}.
+Answer only questions related to your role.
+Be friendly and keep answers under 3 sentences.
+User says: {user_message}"""
+    return ai_model.generate_content(prompt).text
+
+print(ask_gemini("What should I watch tonight?", "MovieBot, an expert film recommender"))
+print(ask_gemini("Solve 5+5", "MovieBot, an expert film recommender"))</div><div class="think-b">🤔 What happened when you asked about math? How does the system prompt control behaviour?</div>`},
+{n:4,title:"Build hybrid bot",body:`<div class="code-b">def smart_response(user_input):
+    text = user_input.lower()
+    if any(w in text for w in ["hello","hi","hey"]):
+        return "Hello! I'm MovieBot 🎬"
+    elif any(w in text for w in ["bye","goodbye"]):
+        return "See you! 🍿"
+    else:
+        return ask_gemini(user_input, "MovieBot, an expert film recommender")
+
+print(smart_response("hi"))
+print(smart_response("What should I watch if I love space?"))</div>`}
+]}
+],
+quiz:[
+{q:"What is an API? Describe it using a real-world analogy.",kw:""},
+{q:"What does the system prompt do? What would happen without it?",kw:"prompt"},
+{q:"Your hybrid bot uses rules for some things and AI for others. Why is this smart?",kw:""}
+],
+done:["Gemini API connected","System prompt with personality written","Hybrid bot combining rules + AI","Tested 6+ inputs","Quiz answers written"],
+coach:"API key safety is critical. Key learning: system prompts are how you program an LLM's personality."},
+
+{proj:3,num:12,icon:"🤖",title:"AI Chatbot — conversation memory and final polish",desc:"Make your chatbot remember the conversation. Real chatbots don't forget!",time:["0–10 min: Research","10–50 min: Memory","50–68 min: Polish","68–75 min: Demo"],
+phases:[
+{label:"Add memory",steps:[
+{n:1,title:"Research conversation history",body:`Ask Gemini: "How do AI chatbots remember earlier parts of a conversation?"<div class="think-b">🤔 If you tell a bot "My name is Alex" then ask "What's my name?" — what needs to happen?</div>`},
+{n:2,title:"Build memory system",body:`<div class="code-b">conversation_history = []
+
+def chat_with_memory(user_message, bot_name="MovieBot"):
+    conversation_history.append(f"User: {user_message}")
+    history_text = "\n".join(conversation_history[-6:])
+    prompt = f"""You are {bot_name}, an expert film recommender.
+Remember context from the conversation. Keep replies under 4 sentences.
+
+Conversation so far:
+{history_text}
+
+{bot_name}:"""
+    response = ai_model.generate_content(prompt).text
+    conversation_history.append(f"{bot_name}: {response}")
+    return response
+
+print(chat_with_memory("Hi, my name is Alex"))
+print(chat_with_memory("I love sci-fi films"))
+print(chat_with_memory("What's my name and what do I like?"))</div><div class="think-b">🤔 Why do we use only [-6:] (last 6 messages)?</div>`},
+{n:3,title:"Add error handling",body:`<div class="code-b">def safe_chat(user_message):
+    if not user_message.strip():
+        return "Please type something!"
+    if len(user_message) > 500:
+        return "That's too long! Keep messages shorter."
+    try:
+        return chat_with_memory(user_message)
+    except Exception as e:
+        return f"Sorry, I had a problem: {str(e)[:50]}"</div>`},
+{n:4,title:"Write documentation",body:`Create a Text cell:<br>1. Bot name and what it does<br>2. How memory works (your own words)<br>3. Two things it does well<br>4. Two improvements you'd make<br>5. One ethical question: could this be misused?`}
+]}
+],
+quiz:[
+{q:"Why does your chatbot only remember the last 6 messages? What's the trade-off?",kw:""},
+{q:"What is error handling and why is it important? Give one example.",kw:"error"},
+{q:"Name one way your chatbot could be used responsibly and one way it could cause harm.",kw:""}
+],
+done:["Memory working and tested","10-message conversation done","Error handling added","Documentation written","Show Coach Penny: memory conversation"],
+coach:"Discuss the ethical question in documentation. Memory system: ensure student understands WHY history is passed in the prompt."},
+
+{proj:4,num:13,icon:"🎮",title:"AI Game — Rock Paper Scissors with a learning AI",desc:"Build Rock Paper Scissors where the computer learns YOUR patterns and tries to beat you!",time:["0–15 min: Research","15–50 min: Base game","50–68 min: Pattern AI","68–75 min: Quiz"],
+phases:[
+{label:"Research AI in games",steps:[
+{n:1,title:"How does AI learn strategy?",body:`Ask Gemini: "How do AI programs learn to play games? Difference between random and learning AI?" Then: "What is pattern recognition in AI games?"<div class="think-b">🤔 Humans repeat patterns without realising. If an AI tracked your last 5 moves, how could it predict your next move?</div>`}
+]},
+{label:"Build the game",steps:[
+{n:2,title:"Build Rock Paper Scissors",body:`New notebook → <code>ai_game.ipynb</code><div class="code-b">import random
+choices = ["rock","paper","scissors"]
+
+def get_winner(player, computer):
+    if player == computer: return "tie"
+    wins = {"rock":"scissors","paper":"rock","scissors":"paper"}
+    return "player" if wins[player]==computer else "computer"
+
+comp, result = play_round("rock") if False else (random.choice(choices), "")
+# Test it:
+print(get_winner("rock","scissors"))
+print(get_winner("paper","rock"))</div><div class="think-b">🤔 Read the wins dictionary as English sentences. What does it mean?</div>`},
+{n:3,title:"Add score tracking",body:`<div class="code-b">scores = {"player":0,"computer":0,"ties":0}
+move_history = []
+
+def play_with_tracking(player_choice):
+    computer_choice = random.choice(choices)
+    result = get_winner(player_choice, computer_choice)
+    move_history.append(player_choice)
+    scores[result] = scores.get(result,0)+1
+    print(f"You: {player_choice} | CPU: {computer_choice} | {result.upper()}")
+    print(f"Score → You:{scores['player']} CPU:{scores['computer']} Ties:{scores['ties']}")
+
+play_with_tracking("rock")
+play_with_tracking("scissors")</div>`},
+{n:4,title:"Add pattern-learning AI",body:`<div class="code-b">from collections import Counter
+
+def smart_ai_move():
+    if len(move_history) < 3: return random.choice(choices)
+    most_common = Counter(move_history[-3:]).most_common(1)[0][0]
+    counter = {"rock":"paper","paper":"scissors","scissors":"rock"}
+    return counter[most_common]
+
+# Play with smart AI:
+def full_game(player_choice):
+    computer_choice = smart_ai_move()
+    result = get_winner(player_choice, computer_choice)
+    move_history.append(player_choice)
+    scores[result] = scores.get(result,0)+1
+    print(f"You:{player_choice} | AI:{computer_choice} | {result.upper()}")
+
+for move in ["rock","rock","paper","rock","scissors"]:
+    full_game(move)</div>Play 10 rounds. Does the AI adapt to your pattern?`}
+]}
+],
+quiz:[
+{q:"How does your smart AI make predictions? Describe the logic in plain English.",kw:"pattern"},
+{q:"Your AI uses the last 3 moves. Would using 10 moves be better or worse? Why?",kw:""},
+{q:"Could a human beat your AI consistently? What strategy would they use?",kw:""}
+],
+done:["Game fully working","Score and move history tracking","smart_ai_move function working","10+ rounds played","Quiz answers written"],
+coach:"Key insight: even a simple counter-strategy is 'learning AI'. Great discussion: 'Is this true machine learning or clever programming?'"},
+
+{proj:4,num:14,icon:"🎮",title:"AI Game — smarter AI with Markov probability",desc:"Upgrade your AI to predict what you'll play NEXT based on sequences — like real game AI!",time:["0–15 min: Research","15–55 min: Markov AI","55–68 min: Tournament","68–75 min: Quiz"],
+phases:[
+{label:"Research probability AI",steps:[
+{n:1,title:"Learn about Markov chains",body:`Ask Gemini: "What is a Markov chain? Explain simply using a game example." Then: "How do chess engines predict opponent moves?"<div class="think-b">🤔 Instead of "what did they play most?" — the smarter question is "after they play rock, what do they usually play NEXT?" Why is that smarter?</div>`}
+]},
+{label:"Build Markov AI",steps:[
+{n:2,title:"Track move sequences",body:`<div class="code-b">from collections import defaultdict
+
+transition_counts = defaultdict(Counter)
+
+def update_transitions(history):
+    for i in range(len(history)-1):
+        transition_counts[history[i]][history[i+1]] += 1
+
+test_history = ["rock","rock","paper","rock","scissors","rock"]
+update_transitions(test_history)
+for move in choices:
+    print(f"After {move}: {dict(transition_counts[move])}")</div><div class="think-b">🤔 After playing "rock", what does this player usually play next?</div>`},
+{n:3,title:"Build the predictor",body:`<div class="code-b">def markov_ai_move(history):
+    if len(history) < 2: return random.choice(choices)
+    last_move = history[-1]
+    if not transition_counts[last_move]: return random.choice(choices)
+    predicted = transition_counts[last_move].most_common(1)[0][0]
+    counter = {"rock":"paper","paper":"scissors","scissors":"rock"}
+    return counter[predicted]</div>`},
+{n:4,title:"Tournament: old vs new AI",body:`<div class="code-b">def run_tournament(player_sequence):
+    old_wins, new_wins = 0, 0
+    hist = []
+    for move in player_sequence:
+        old = smart_ai_move()
+        new = markov_ai_move(hist)
+        if get_winner(move, old)=="computer": old_wins+=1
+        if get_winner(move, new)=="computer": new_wins+=1
+        hist.append(move)
+        update_transitions(hist)
+    print(f"Old AI: {old_wins}/{len(player_sequence)}")
+    print(f"New AI: {new_wins}/{len(player_sequence)}")
+
+run_tournament(["rock","rock","paper","rock","rock","paper","rock"])</div>`}
+]}
+],
+quiz:[
+{q:"What is the difference between frequency-based AI and Markov AI? Which is smarter and why?",kw:""},
+{q:"Your Markov AI looks 1 step back. What would happen if it looked 2 steps back?",kw:""},
+{q:"Can any AI beat a truly random player at Rock Paper Scissors? Explain.",kw:""}
+],
+done:["Transition tracking built","Markov predictor working","Tournament comparing both AIs","Results compared","Quiz answers written"],
+coach:"Ask: 'What other AI systems use sequence prediction?' (Next word prediction, music generation, stock prices)"},
+
+{proj:4,num:15,icon:"🎮",title:"AI Game — full game UI and project completion",desc:"Build the complete playable game with rounds, levels, and a game-over screen!",time:["0–10 min: Design","10–55 min: Full game","55–68 min: Play test","68–75 min: Documentation"],
+phases:[
+{label:"Design and build",steps:[
+{n:1,title:"Plan before coding",body:`Write on paper:<br>1. How many rounds per game?<br>2. How does the player know the AI is learning?<br>3. What shows at game over?<br>4. Difficulty setting (random vs smart AI)?<div class="gem-b">🔍 Ask Gemini: "What makes a simple game fun to play? What game design principles matter?"</div>`},
+{n:2,title:"Build the complete game",body:`<div class="code-b">def play_full_game(rounds=10, use_smart_ai=True):
+    move_history.clear(); transition_counts.clear()
+    scores = {"player":0,"computer":0,"ties":0}
+    print("\n"+"="*45)
+    print("   🎮 ROCK PAPER SCISSORS — AI EDITION")
+    print(f"   AI: {'Smart (learning)' if use_smart_ai else 'Random'} | Rounds: {rounds}")
+    print("="*45+"\n")
+    for round_num in range(1, rounds+1):
+        print(f"Round {round_num}/{rounds}")
+        player = input("Your move (rock/paper/scissors): ").lower()
+        if player not in choices: print("Invalid! Skip."); continue
+        if use_smart_ai:
+            update_transitions(move_history); comp = markov_ai_move(move_history)
+        else: comp = random.choice(choices)
+        result = get_winner(player, comp)
+        move_history.append(player)
+        scores[result] = scores.get(result,0)+1
+        icon = "🏆" if result=="player" else ("🤖" if result=="computer" else "🤝")
+        print(f"{icon} You:{player} | AI:{comp} | {result.upper()}\n")
+    print("="*45)
+    print(f"FINAL → You:{scores['player']} AI:{scores['computer']} Ties:{scores['ties']}")
+    w="YOU WIN! 🏆" if scores['player']>scores['computer'] else ("AI WINS! 🤖" if scores['computer']>scores['player'] else "TIE! 🤝")
+    print(w); print("="*45)
+
+play_full_game(rounds=10)</div>`},
+{n:3,title:"Play test 3 times",body:`After each game write:<br>— One thing that worked well<br>— One thing that felt broken<br>— One improvement<br><br>Make at least 2 code improvements based on your notes.`},
+{n:4,title:"Write documentation",body:`<div class="code-b">## AI Game — Project Documentation
+### How the game works:
+### How the Markov AI learns patterns:
+### What makes it better than random AI:
+### Play test results + improvements:
+### Ideas for version 2:</div>`}
+]}
+],
+quiz:[
+{q:"Describe the Markov AI strategy in plain English for someone who has never coded.",kw:""},
+{q:"You tested smart AI vs random AI. Which was harder to beat? Did that match expectations?",kw:""},
+{q:"A player plays randomly on purpose. How does this affect your Markov AI?",kw:"random"}
+],
+done:["Full game with rounds, scores, game-over","Both AI modes working","3 full games played, 2 improvements made","Documentation written","Show Coach Penny: full game from start to finish"],
+coach:"Watch the student play their own game. Ask: 'Did the AI adapt to you?' Documentation must explain Markov logic in student's own words."},
+
+{proj:5,num:16,icon:"🚀",title:"Final Project — choose your idea and plan",desc:"This is YOUR project. Choose something you genuinely want to build. 3 sessions to design, build, and present it!",time:["0–20 min: Explore ideas","20–50 min: Plan","50–68 min: Research","68–75 min: Coach approval"],
+phases:[
+{label:"Choose and plan",steps:[
+{n:1,title:"Explore project ideas",body:`Ask Gemini: "Give me 10 beginner-friendly AI Python project ideas with libraries and outputs."<div class="code-b">Some ideas:
+1. Spam email detector
+2. Movie recommendation system
+3. Handwriting digit recognizer (MNIST)
+4. Weather mood predictor
+5. Music genre classifier
+6. Plant disease identifier (images)
+7. Simple voice command detector
+8. Sports result predictor</div>Pick what EXCITES you most — or invent your own!`},
+{n:2,title:"Write your project brief",body:`<div class="code-b">PROJECT NAME:
+WHAT IT DOES (1 sentence):
+INPUT (what goes in):
+OUTPUT (what comes out):
+MOST SIMILAR TO (which of the 5 projects):
+LIBRARIES NEEDED:
+BIGGEST CHALLENGE I SEE:
+WHY I CHOSE THIS:</div><div class="warn-b">⚠️ Get Coach Penny's approval before Session 17!</div>`},
+{n:3,title:"Write your step-by-step plan",body:`<div class="code-b">SESSION 17 — I will:
+  Step 1:
+  Step 2:
+  Step 3:
+  Step 4:
+
+SESSION 18 (first 45 min):
+  Step 5:
+  Step 6:
+
+SESSION 18 PRESENTATION:
+  I will show: ...</div>`},
+{n:4,title:"Test your environment",body:`<div class="code-b">try:
+    import pandas as pd
+    import sklearn
+    print("Core libraries: OK")
+    # Add specific libraries you need
+    print("All libraries ready!")
+except ImportError as e:
+    print("Missing:", e)</div>Fix any errors before Session 17!`}
+]}
+],
+quiz:[
+{q:"Describe your final project in 3 sentences: what it does, what goes in, what comes out.",kw:""},
+{q:"Which of the 5 previous projects is it most similar to? What will be different?",kw:""},
+{q:"What is the hardest part? What is your plan if you get stuck?",kw:""}
+],
+done:["Project chosen","Brief written","Step-by-step plan for Sessions 17–18","Libraries tested","COACH PENNY APPROVAL before Session 17"],
+coach:"Approve only: (a) completable in 2 sessions, (b) student's genuine choice, (c) requires new learning. If stuck: 'What daily life problem could AI solve?'"},
+
+{proj:5,num:17,icon:"🚀",title:"Final Project — build it",desc:"Execute your Session 16 plan. Research, build, test, and debug. You can do this!",time:["0–5 min: Review plan","5–60 min: Build","60–70 min: Test","70–75 min: Status check"],
+phases:[
+{label:"Build",steps:[
+{n:1,title:"Start from your plan",body:`Open your Session 16 plan. Check off items as you complete them.<div class="info-b">ℹ️ <strong>Rule:</strong> For every piece of code you write, you must be able to explain what it does. If you can't — research it first.</div>`},
+{n:2,title:"Research as you go",body:`When you don't know how to do something:<div class="code-b">"In Python, how do I [specific thing]? Show me a simple example."</div>Read, understand, then write YOUR OWN version. Don't copy Gemini's code directly!<div class="think-b">🤔 Before every new function: what goes IN? what comes OUT? Write that as a comment first.</div>`},
+{n:3,title:"Test as you build",body:`<div class="code-b"># After writing every function, test immediately:
+result = my_function("test input")
+print("Test result:", result)</div>Write 10 lines → test → fix → continue. This is how real engineers work!`},
+{n:4,title:"Handle problems",body:`When something breaks:<br>1. Read the error message carefully<br>2. Ask Gemini: "I got this error: [paste error]. What does it mean?"<br>3. Try the fix<br>4. Stuck for 5+ minutes? Call Coach Penny<div class="warn-b">⚠️ Write every problem and solution in your notebook. This is your debugging log!</div>`},
+{n:5,title:"End-of-session status",body:`<div class="code-b">## Session 17 Status
+### What I completed:
+### What's left for Session 18:
+### Biggest problem and how I solved it:
+### Does my project work? YES / NO
+### What I need help with:</div>Show to Coach Penny before leaving!`}
+]}
+],
+quiz:[
+{q:"Pick your most important function. Explain what it does in plain English.",kw:""},
+{q:"What was the hardest bug today? How did you debug it?",kw:""},
+{q:"If you had 30 more minutes, what would you focus on and why?",kw:""}
+],
+done:["Followed Session 16 plan","Core functionality 70%+ complete","Tested each function as built","Debugging log written","Status check shown to Coach Penny"],
+coach:"Walk around every 10–15 min. Red flags: copying from Gemini without understanding, or no output after 20 min. Help debug — don't solve for them."},
+
+{proj:5,num:18,icon:"🚀",title:"Final Project — present and celebrate! 🎉",desc:"Finish your project, present to the group, and reflect on your incredible 18-session journey!",time:["0–40 min: Finish","40–65 min: Presentations","65–75 min: Reflection"],
+phases:[
+{label:"Finish and present",steps:[
+{n:1,title:"Final polish — 40 minutes",body:`Focus on a working demo. If something is broken, simplify — remove it. A small working demo beats a large broken one.<div class="code-b">## Final checklist:
+# ✓ Run notebook top to bottom — no errors
+# ✓ Can demo it live with a real input?
+# ✓ Can explain what each part does?
+# ✓ Text cell explaining the project?</div>`},
+{n:2,title:"Your 2-minute presentation",body:`<div class="code-b">1. WHAT IT IS (10 sec): "I built a ___ that ___"
+2. HOW IT WORKS (40 sec): "First ___, then ___, finally ___"
+3. LIVE DEMO (40 sec): "Watch what happens when I input ___"
+4. WHAT I LEARNED (20 sec): "The hardest part was ___ and I learned ___"
+5. WHAT'S NEXT (10 sec): "If I had more time I would ___"</div>`},
+{n:3,title:"Presentation time! 🎤",body:`Each student gets 2 minutes:<br>— Show your Colab on screen<br>— Run a live demo<br>— Explain how it works in your own words<br>— Share one thing you struggled with<div class="info-b">ℹ️ While others present: write one question to ask them. Start with "Why did you..." or "What would happen if..."</div>`},
+{n:4,title:"Your final reflection",body:`<div class="code-b">## My 18-Session AI Project Journey
+
+### The 5 projects I built:
+### The concept I understood best:
+### The hardest concept:
+### The moment I felt most proud:
+### One thing AI can do that surprised me:
+### One thing I want to learn next:
+### One question about AI I still have:</div>Save this — it's your portfolio! 🌟`},
+{n:5,title:"One last Gemini question",body:`Ask Gemini anything you're still curious about after this course — a concept you never fully understood, a new project idea, or a question about AI's future.<br><br>Write the question, Gemini's answer, and YOUR reaction.<div class="gem-b">🎓 <strong>Congratulations!</strong> You built a sentiment analyzer, prediction model, image recognizer, AI chatbot, and AI game. You are no longer a beginner. You are an AI builder! 🚀</div>`}
+]}
+],
+quiz:[
+{q:"From all 5 projects, which taught you the most? Why that one specifically?",kw:""},
+{q:"What do you understand about AI now that you didn't before Session 1?",kw:""},
+{q:"Explain machine learning to a 7-year-old in 3 sentences.",kw:""}
+],
+done:["Project working with clean demo","2-minute presentation delivered","Live demo shown to group","Asked someone a question during their presentation","Final reflection completed","Last Gemini question written","🎉 Celebrated with the class!"],
+coach:"Celebration session! Read reflection documents — they are diagnostic. If a student wrote 'I don't understand anything', flag for extra support. Collect all reflections."}
+];
+
+/* ═══════════════════════════════════════════════
+   CURRICULUM RENDER
+═══════════════════════════════════════════════ */
+let cProj=0, cSess=0;
+
+function selProj(pi){
+  cProj=pi; cSess=PROJS[pi].range[0];
+  document.querySelectorAll('.proj-card').forEach((c,i)=>c.classList.toggle('active',i===pi));
+  renderSess(); renderPanel();
+}
+
+function selSess(si){ cSess=si; renderSess(); renderPanel(); }
+
+function renderSess(){
+  const p=PROJS[cProj];
+  let h='';
+  for(let i=p.range[0];i<p.range[0]+p.range[1];i++){
+    h+=`<button class="ssbtn ${PC[cProj]}${i===cSess?' active':''}" onclick="selSess(${i})">Session ${SESSIONS[i].num}</button>`;
+  }
+  document.getElementById('sessRow').innerHTML=h;
+}
+
+function renderPanel(){
+  const s=SESSIONS[cSess];
+  const bc=PB[cProj], cc=PC[cProj];
+  let h=`<div class="s-banner ${bc}">
+    <div class="s-bigicon">${s.icon}</div>
+    <div>
+      <div class="s-num">Session ${s.num} of 18 · ${PROJS[cProj].name} · 1 hr 15 min</div>
+      <div class="s-title">${s.title}</div>
+      <div class="s-desc">${s.desc}</div>
+    </div>
+  </div>
+  <div class="timebar">${s.time.map(t=>`<span class="tc">${t}</span>`).join('')}</div>`;
+
+  s.phases.forEach(phase=>{
+    h+=`<div class="phase-hdr">${phase.label}<div class="pl-line"></div></div>`;
+    phase.steps.forEach(step=>{
+      h+=`<div class="step">
+        <div class="step-top"><div class="snum ${cc}">${step.n}</div><div class="st">${step.title}</div></div>
+        <div class="sb">${step.body}</div>
+      </div>`;
+    });
+  });
+
+  h+=`<div class="quiz"><div class="quiz-hdr">✏️ Understanding check — write in your own words, no copying!</div>`;
+  s.quiz.forEach((q,i)=>{
+    const id=`q_${cSess}_${i}`;
+    h+=`<div class="qq"><strong>Q${i+1}.</strong> ${q.q}</div>
+<textarea id="${id}" placeholder="Write your answer here..."></textarea>
+<button class="qbtn" onclick="chk('${id}','${q.kw}','${id}fb')">Check my answer ↗</button>
+<div class="qfb" id="${id}fb"></div>`;
+  });
+  h+=`</div>`;
+
+  h+=`<div class="done-box"><div class="done-t">✅ Session complete when you have:</div><div class="done-l">`;
+  s.done.forEach(d=>{h+=`✓ ${d}<br>`;});
+  h+=`</div></div>`;
+
+  if(currentUser&&currentUser.role==='Coach'){
+    h+=`<div class="coach-box"><div class="coach-t">🧑‍🏫 Coach note (visible to coaches only)</div><div class="coach-l">${s.coach}</div></div>`;
+  }
+
+  document.getElementById('panel').innerHTML=h;
+}
+
+function chk(inputId,kw,fbId){
+  const val=document.getElementById(inputId).value.trim();
+  const fb=document.getElementById(fbId);
+  if(!val){fb.innerHTML='<span style="color:#E24B4A">Please write something first!</span>';return;}
+  if(val.length<25){fb.innerHTML='<span style="color:#BA7517">Write at least one full sentence in your own words.</span>';return;}
+  if(kw&&!val.toLowerCase().includes(kw.toLowerCase())){
+    fb.innerHTML='<span style="color:#BA7517">Good try! Make sure your answer includes the key idea. Research it in Gemini then update.</span>';return;
+  }
+  fb.innerHTML='<span style="color:#1D9E75">✅ Great answer — show this to your coach for sign-off!</span>';
+}
+</script>
+</body>
+</html>
